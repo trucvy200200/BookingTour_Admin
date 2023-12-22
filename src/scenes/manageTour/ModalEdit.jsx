@@ -19,7 +19,7 @@ import { isObjEmpty } from "../../utility/Utils"
 import { convertDateMonthFirst, convertDateDefault } from '../../utility/ConvertDate';
 import FileUploaderMultiple from "../../components/FileUploaderMultiple"
 
-export default function FormDialog({ open, handleClose, getAllTours, idTour }) {
+export default function FormDialog({ open, handleClose, getAllTours, detail }) {
     const [isChoose, setIsChoose] = useState(false)
     const [errorImage, setErrorImage] = useState([])
     const [data, setData] = useState({})
@@ -42,17 +42,17 @@ export default function FormDialog({ open, handleClose, getAllTours, idTour }) {
     })
 
     const defaultValues = {
-        name: JSON.parse(localStorage.getItem("tour"))?.name,
-        duration: JSON.parse(localStorage.getItem("tour"))?.duration,
-        from: JSON.parse(localStorage.getItem("tour"))?.pickUp,
-        to: JSON.parse(localStorage.getItem("tour"))?.districtDes,
-        destination: JSON.parse(localStorage.getItem("tour"))?.destination,
-        childPrice: JSON.parse(localStorage.getItem("tour"))?.childPrice,
-        adultPrice: JSON.parse(localStorage.getItem("tour"))?.adultPrice,
-        description: JSON.parse(localStorage.getItem("tour"))?.description,
-        openTime: convertDateDefault(JSON.parse(localStorage.getItem("tour"))?.openTime),
-        closeTime: convertDateDefault(JSON.parse(localStorage.getItem("tour"))?.closeTime),
-        region: JSON.parse(localStorage.getItem("tour"))?.region
+        name: detail?.name,
+        duration: detail?.duration,
+        from: detail?.pickUp,
+        to: detail?.districtDes,
+        destination: detail?.destination,
+        childPrice: detail?.childPrice,
+        adultPrice: detail?.adultPrice,
+        description: detail?.description,
+        openTime: convertDateDefault(detail?.openTime),
+        closeTime: convertDateDefault(detail?.closeTime),
+        region: detail?.region
     }
 
     const {

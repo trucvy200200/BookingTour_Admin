@@ -30,8 +30,10 @@ const ManageTour = () => {
     const [openCreate, setOpenCreate] = useState(false);
     const [open, setOpen] = useState(false);
     const [idTour, setIdTour] = useState(null)
-    const dispatch = useDispatch()
-    const store = useSelector(state => state.tour.tourDetail)
+
+    useEffect(() => {
+        getDetail()
+    }, [idTour])
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -44,6 +46,9 @@ const ManageTour = () => {
     const handleCloseCreate = () => {
         setOpenCreate(false);
     };
+    const getDetail = () => {
+        setDetail(data?.find(tour => tour._id === idTour))
+    }
     const columns = [{
         field: "_id",
         headerName: "ID",
@@ -138,13 +143,6 @@ const ManageTour = () => {
     useEffect(() => {
         getAllTours()
     }, [])
-    useEffect(() => {
-        if (idTour) {
-            dispatch(getTourById(idTour))
-            localStorage.setItem("tour", JSON.stringify(store))
-        }
-
-    }, [idTour])
     const getAllTours = async () => {
         await axios.post("/api/get-all-tours").then(res => {
             setData(res.data?.tourData?.data)
@@ -207,7 +205,7 @@ const ManageTour = () => {
 
                 </DataGrid>
             </Box>
-            <ModalEdit open={open} handleClose={handleClose} getAllTours={getAllTours} idTour={idTour} />
+            <ModalEdit open={open} handleClose={handleClose} getAllTours={getAllTours} detail={detail} />
             <ModalCreate open={openCreate} handleClose={handleCloseCreate} getAllTours={getAllTours} />
         </Box >
     );
