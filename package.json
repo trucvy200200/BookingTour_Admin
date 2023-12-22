@@ -37,6 +37,7 @@
     "fullcalendar": "^6.1.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
     "react-feather": "^2.0.10",
     "react-hot-toast": "^2.4.1",
     "react-pro-sidebar": "^0.7.1",

@@ -8,6 +8,8 @@ import { convertDate } from "../../utility/ConvertDate";
 import ModalEdit from "./ModalEdit"
 import ModalCreate from "./ModalCreate"
 import "./styles.scss"
+import { getTourById } from "./store/action"
+import { useDispatch, useSelector } from 'react-redux';
 const renderStatus = (params) => {
     switch (params) {
         case 1:
@@ -24,9 +26,12 @@ const ManageTour = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [data, setData] = useState([])
+    const [detail, setDetail] = useState({})
     const [openCreate, setOpenCreate] = useState(false);
     const [open, setOpen] = useState(false);
-
+    const [idTour, setIdTour] = useState(null)
+    const dispatch = useDispatch()
+    const store = useSelector(state => state.tour.tourDetail)
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -119,7 +124,10 @@ const ManageTour = () => {
                     }
                     borderRadius="4px"
                 >
-                    <Button variant="outlined text-white" onClick={handleClickOpen}>
+                    <Button variant="outlined text-white" onClick={() => {
+                        handleClickOpen()
+                        setIdTour(params.row._id)
+                    }}>
                         Update
                     </Button>
                 </Box >
@@ -128,16 +136,22 @@ const ManageTour = () => {
     },
     ];
     useEffect(() => {
-        axios.post("/api/get-all-tours").then(res => {
+        getAllTours()
+    }, [])
+    useEffect(() => {
+        if (idTour) {
+            dispatch(getTourById(idTour))
+            localStorage.setItem("tour", JSON.stringify(store))
+        }
+
+    }, [idTour])
+    const getAllTours = async () => {
+        await axios.post("/api/get-all-tours").then(res => {
             setData(res.data?.tourData?.data)
         })
-    }, [])
-    const handleUpdate = () => {
-        axios.post("")
     }
-    const handleCreate = () => {
 
-    }
+
     return (
         <Box m="20px">
             <Header title="MANAGE TOURS" subtitle="Managing the tour list" />
@@ -193,8 +207,8 @@ const ManageTour = () => {
 
                 </DataGrid>
             </Box>
-            <ModalEdit open={open} handleClose={handleClose} handleOk={handleUpdate} />
-            <ModalCreate open={openCreate} handleClose={handleCloseCreate} handleOk={handleCreate} />
+            <ModalEdit open={open} handleClose={handleClose} getAllTours={getAllTours} idTour={idTour} />
+            <ModalCreate open={openCreate} handleClose={handleCloseCreate} getAllTours={getAllTours} />
         </Box >
     );
 }
