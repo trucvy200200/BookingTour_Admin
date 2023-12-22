@@ -51,6 +51,7 @@ const ManageTour = () => {
     }
     const columns = [{
         field: "_id",
+        flex: 1,
         headerName: "ID",
     },
     {
@@ -63,6 +64,7 @@ const ManageTour = () => {
         field: "openTime",
         headerName: "Open time",
         type: "number",
+        flex: 1,
         headerAlign: "left",
         align: "left",
         valueGetter: (params) => {
@@ -111,34 +113,34 @@ const ManageTour = () => {
             )
         }
     },
-    {
-        field: "",
-        headerName: "Actions",
-        flex: 1,
-        width: 200,
-        align: "left",
-        headerAlign: "center",
-        renderCell: (params) => {
-            return (
-                <Box
-                    m="0 auto"
-                    backgroundColor={
-                        params.row.status === 1
-                            ? colors.greenAccent[600]
-                            : colors.redAccent[700]
-                    }
-                    borderRadius="4px"
-                >
-                    <Button variant="outlined text-white" onClick={() => {
-                        handleClickOpen()
-                        setIdTour(params.row._id)
-                    }}>
-                        Update
-                    </Button>
-                </Box >
-            )
-        }
-    },
+        // {
+        //     field: "",
+        //     headerName: "Actions",
+        //     flex: 1,
+        //     width: 200,
+        //     align: "left",
+        //     headerAlign: "center",
+        //     renderCell: (params) => {
+        //         return (
+        //             <Box
+        //                 m="0 auto"
+        //                 backgroundColor={
+        //                     params.row.status === 1
+        //                         ? colors.greenAccent[600]
+        //                         : colors.redAccent[700]
+        //                 }
+        //                 borderRadius="4px"
+        //             >
+        //                 <Button variant="outlined text-white" onClick={() => {
+        //                     handleClickOpen()
+        //                     setIdTour(params.row._id)
+        //                 }}>
+        //                     Update
+        //                 </Button>
+        //             </Box >
+        //         )
+        //     }
+        // },
     ];
     useEffect(() => {
         getAllTours()
@@ -205,7 +207,7 @@ const ManageTour = () => {
 
                 </DataGrid>
             </Box>
-            <ModalEdit open={open} handleClose={handleClose} getAllTours={getAllTours} detail={detail} />
+            {/* <ModalEdit open={open} handleClose={handleClose} getAllTours={getAllTours} detail={detail} /> */}
             <ModalCreate open={openCreate} handleClose={handleCloseCreate} getAllTours={getAllTours} />
         </Box >
     );
