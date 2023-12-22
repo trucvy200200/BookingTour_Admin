@@ -17,6 +17,10 @@ const renderStatus = (params) => {
             return (
                 "Inactive"
             )
+        case "-1":
+            return (
+                "Cancel"
+            )
     }
 }
 const ManageTransactions = () => {
