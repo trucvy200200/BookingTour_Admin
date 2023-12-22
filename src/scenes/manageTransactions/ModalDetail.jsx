@@ -31,13 +31,13 @@ export default function FormDialog({ open, handleClose, data }) {
                         <TextField variant="standard" disabled label="Transaction ID" value={data?.idPayment} />
                         <TextField variant="standard" disabled label="User ID" value={data?.idUser} />
                         <TextField variant="standard" disabled label="Tour ID" value={data?.idTour} />
-                        {data?.flight.length > 0 && (
+                        {data?.flight?.length > 0 && (
                             <>
                                 <TextField fullWidth variant="standard" disabled label="Flight Name" value={data?.flight[0]?.carriers} />
                                 <TextField fullWidth variant="standard" disabled label="Flight Price" value={`${data?.flight[0]?.total} VND`} />
                             </>
                         )}
-                        {data?.hotel.length > 0 && (
+                        {data?.hotel?.length > 0 && (
                             <>
                                 <TextField variant="standard" disabled label="Hotel Name" value={`${data?.hotel[0]?.name}`} />
                                 <TextField variant="standard" disabled label="Flight Name" value={`${data?.hotel[0]?.total} VND`} />
@@ -46,7 +46,7 @@ export default function FormDialog({ open, handleClose, data }) {
                         <TextField variant="standard" disabled label="Number of adult" value={`${data?.nAdult}`} />
                         <TextField variant="standard" disabled label="Number of children" value={`${data?.nChildren}`} />
                         <TextField variant="standard" disabled label="Total Price" value={`${data?.totalPrice}`} />
-                        <TextField variant="standard" disabled label="Updated At" value={`${data?.updatedAt}`} />
+                        <TextField variant="standard" disabled label="Updated At" value={`${convertDateTime(data?.updatedAt)}`} />
                     </Box>
                 </DialogContent>
                 <DialogActions sx={{ backgroundColor: `${colors.primary[400]} !important` }}>

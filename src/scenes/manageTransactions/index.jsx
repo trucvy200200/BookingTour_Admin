@@ -175,7 +175,7 @@ const ManageTransactions = () => {
                             paginationModel: { pageSize: 10, page: 0 },
                         },
                     }}
-                    rows={data}
+                    rows={data.length > 0 ? data : []}
                     columns={columns}
                     getRowId={row => row._id}
                     pageSizeOptions={[5, 10, 15]}>
